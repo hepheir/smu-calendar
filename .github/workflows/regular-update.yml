@@ -6,14 +6,30 @@ on:
 
   schedule:
     - cron: '0 0 * * 0' # 매주 일요일마다 실행
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+
 jobs:
   Regular-Update:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Create .ics file
-        run: bin/main
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run script
+        run: |
+          python src/main.py
       - name: Login as github-actions bot
         run: |
           git config user.name 'github-actions[bot]'
