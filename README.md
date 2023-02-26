@@ -18,5 +18,4 @@
 
 정상적으로 캘린더를 구독하였을 때의 모습입니다.
 
-![image](https://user-images.githubusercontent.com/19310326/221433168-2c66a14c-8236-4f6c-b62b-74ff96d75967.png)
-
+![image](https://user-images.githubusercontent.com/19310326/221437658-dd1dbfea-b2a7-4cfa-90f9-e066415c1ada.png)
