@@ -23,7 +23,7 @@ def loadCalendarJSON() -> typing.Dict[str, typing.Any]:
     )
     return response.json()
 
-def loadCalendarICS(calendarJSON) -> ics.icalendar.Calendar:
+def buildCalendarICS(calendarJSON) -> ics.icalendar.Calendar:
     if not calendarJSON["success"]:
         return
     calendar =  ics.icalendar.Calendar(creator="상명대학교 (+hepheir@gmail.com)")
@@ -51,7 +51,7 @@ def loadCalendarICS(calendarJSON) -> ics.icalendar.Calendar:
     return calendar
 
 def main():
-    calendar = loadCalendarICS(loadCalendarJSON())
+    calendar = buildCalendarICS(loadCalendarJSON())
     with open("docs/calendar.ics", 'w') as icsFile:
         icsFile.writelines(calendar.serialize_iter())
 
