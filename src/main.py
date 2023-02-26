@@ -4,13 +4,14 @@ import typing
 import requests
 import ics
 
+calendar_url = "https://www.smu.ac.kr/ko/life/academicCalendar.do"
+calendar_ics_path = "docs/calendar.ics"
+
 def cvtStr2Datetime(datestring: str, pattern: str = '%Y-%m-%d') -> datetime.datetime:
     return datetime.datetime.strptime(datestring, pattern)
 
 def cvtInt2Datetime(ms: int) -> datetime.datetime:
-    head = datetime.datetime(1970, 1, 1)
-    offset = datetime.timedelta(0, 0, 0, ms)
-    return head + offset
+    return datetime.datetime(1970, 1, 1) + datetime.timedelta(milliseconds=ms)
 
 def loadCalendarJSON() -> typing.Dict[str, typing.Any]:
     response = requests.post(
@@ -37,7 +38,7 @@ def buildCalendarICS(calendarJSON) -> ics.icalendar.Calendar:
             created = cvtInt2Datetime(eventJSON["createDt"]),
             last_modified = cvtInt2Datetime(eventJSON["updateDt"]),
             # location: str = None,
-            url = "https://www.smu.ac.kr/ko/life/academicCalendar.do",
+            url = calendar_url,
             # transparent: bool = None,
             # alarms: Iterable[BaseAlarm] = None,
             # attendees: Iterable[Attendee] = None,
@@ -47,12 +48,13 @@ def buildCalendarICS(calendarJSON) -> ics.icalendar.Calendar:
             # geo=None,
             # classification: str = None,
         )
+        event.make_all_day()
         calendar.events.add(event)
     return calendar
 
 def main():
     calendar = buildCalendarICS(loadCalendarJSON())
-    with open("docs/calendar.ics", 'w') as icsFile:
+    with open(calendar_ics_path, 'w') as icsFile:
         icsFile.writelines(calendar.serialize_iter())
 
 main()
