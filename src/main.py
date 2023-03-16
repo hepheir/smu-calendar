@@ -50,8 +50,9 @@ def parseCalendarJSON(calendarJSON: typing.Dict[str, typing.Any]) -> typing.Iter
 
 def buildCalendarICS() -> ics.icalendar.Calendar:
     calendar =  ics.icalendar.Calendar(creator=ICS_AUTHOR)
-    for event in parseCalendarJSON(loadCalendarJSON(2023)):
-        calendar.events.add(event)
+    for year in range(2018, datetime.datetime.now().year+2):
+        for event in parseCalendarJSON(loadCalendarJSON(year)):
+            calendar.events.add(event)
     return calendar
 
 def main():
