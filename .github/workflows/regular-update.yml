@@ -5,7 +5,9 @@ on:
     branches: ["master"]
 
   schedule:
-    - cron: '0 0 * * 0' # 매주 일요일마다 실행
+    # POSIX cron syntax:
+    # https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
+    - cron: '0 0 1 * *' # 매월 1일 자정에 실행
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
