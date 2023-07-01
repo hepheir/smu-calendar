@@ -450,12 +450,23 @@ UID:682642
 URL:https://www.smu.ac.kr/ko/life/academicCalendar.do
 END:VEVENT
 BEGIN:VEVENT
-DTSTART;VALUE=DATE:20240222
-DTSTAMP:20221226T043758Z
-DESCRIPTION:<div class="fr-view"><p>2024학년도 입학식(서울)</p></div>
-LAST-MODIFIED:20221226T043758Z
-SUMMARY:2024학년도 입학식(서울)
-UID:732890
+DTSTART;VALUE=DATE:20230721
+DTEND;VALUE=DATE:20230725
+DTSTAMP:20230623T000647Z
+DESCRIPTION:<div class="fr-view"><p>2023-2학기 장바구니수강신청 1차(재학생)</p></div>
+LAST-MODIFIED:20230623T000647Z
+SUMMARY:2023-2학기 장바구니수강신청 1차(재학생)
+UID:737647
+URL:https://www.smu.ac.kr/ko/life/academicCalendar.do
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20230818
+DTEND;VALUE=DATE:20230822
+DTSTAMP:20230623T000733Z
+DESCRIPTION:<div class="fr-view"><p>2023-2학기 장바구니수강신청 2차(재학생)</p></div>
+LAST-MODIFIED:20230623T000733Z
+SUMMARY:2023-2학기 장바구니수강신청 2차(재학생)
+UID:737648
 URL:https://www.smu.ac.kr/ko/life/academicCalendar.do
 END:VEVENT
 BEGIN:VEVENT
@@ -474,6 +485,15 @@ DESCRIPTION:<div class="fr-view"><p>2023학년도 전기 학위수여식(서울&
 LAST-MODIFIED:20230120T074824Z
 SUMMARY:2023학년도 전기 학위수여식(서울·천안)
 UID:732892
+URL:https://www.smu.ac.kr/ko/life/academicCalendar.do
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20240222
+DTSTAMP:20221226T043758Z
+DESCRIPTION:<div class="fr-view"><p>2024학년도 입학식(서울)</p></div>
+LAST-MODIFIED:20221226T043758Z
+SUMMARY:2024학년도 입학식(서울)
+UID:732890
 URL:https://www.smu.ac.kr/ko/life/academicCalendar.do
 END:VEVENT
 BEGIN:VEVENT
