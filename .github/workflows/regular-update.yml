@@ -1,5 +1,5 @@
 name: Regular Update
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: Updating Calendar
 on:
   push:
     branches: ["master"]
