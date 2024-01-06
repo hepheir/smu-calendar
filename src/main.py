@@ -3,6 +3,7 @@ from __future__ import annotations
 import dataclasses
 import datetime
 import json
+import os
 import typing
 
 import requests
@@ -19,6 +20,9 @@ def main():
 
     for evt in sorted(smu_calendar.get_events()):
         icalendar.events.add(evt.to_ics())
+
+    if not os.path.exists(os.path.dirname(ICS_FILE_OUTPUT_PATH)):
+        os.makedirs(os.path.dirname(ICS_FILE_OUTPUT_PATH))
 
     with open(ICS_FILE_OUTPUT_PATH, 'w') as f:
         f.writelines(icalendar.serialize_iter())
