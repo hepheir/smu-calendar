@@ -72,7 +72,7 @@ class SmuCalendarEvent:
     def _strptime(self, s: str) -> datetime.datetime:
         return datetime.datetime.strptime(s, "%Y-%m-%d")
 
-    def _msptime(self, ms: str) -> datetime.datetime:
+    def _msptime(self, ms: int) -> datetime.datetime:
         return datetime.datetime(1970, 1, 1) + datetime.timedelta(milliseconds=ms)
 
 
