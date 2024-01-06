@@ -39,5 +39,6 @@ jobs:
           build_dir: docs
           keep_history: true
           author: Hepheir <19310326+Hepheir@users.noreply.github.com>
+          commit_message: "docs: update calendar.ics"
         env:
           GITHUB_TOKEN: ${{ github.token }}
