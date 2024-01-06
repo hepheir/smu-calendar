@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import dataclasses
-import datetime
 import json
 import os
-import typing
+from datetime import datetime, timedelta
+from typing import Any, Dict, Iterable, Set
 
 import requests
 import ics
@@ -69,28 +69,28 @@ class SmuCalendarEvent:
         event.make_all_day()
         return event
 
-    def _strptime(self, s: str) -> datetime.datetime:
-        return datetime.datetime.strptime(s, "%Y-%m-%d")
+    def _strptime(self, s: str) -> datetime:
+        return datetime.strptime(s, "%Y-%m-%d")
 
-    def _msptime(self, ms: int) -> datetime.datetime:
-        return datetime.datetime(1970, 1, 1) + datetime.timedelta(milliseconds=ms)
+    def _msptime(self, ms: int) -> datetime:
+        return datetime(1970, 1, 1) + timedelta(milliseconds=ms)
 
 
 class SmuCalendar:
-    def get_events(self) -> typing.Set[SmuCalendarEvent]:
-        CURRENT_YEAR = datetime.datetime.now().year
+    def get_events(self) -> Set[SmuCalendarEvent]:
+        CURRENT_YEAR = datetime.now().year
         events = set()
         for year in range(2018, CURRENT_YEAR+2):
             for evt in self._get_events(year):
                 events.add(evt)
         return events
 
-    def _get_events(self, year: int) -> typing.Iterable[SmuCalendarEvent]:
+    def _get_events(self, year: int) -> Iterable[SmuCalendarEvent]:
         raw_data = self._fetch(year)
         self._validate(raw_data)
         return self._deserialize(raw_data)
 
-    def _fetch(self, year: int) -> typing.Dict[str, typing.Any]:
+    def _fetch(self, year: int) -> Dict[str, Any]:
         response = requests.post(
             url="https://www.smu.ac.kr/app/common/selectDataList.do",
             data={
@@ -104,11 +104,11 @@ class SmuCalendar:
         )
         return response.json()
 
-    def _validate(self, json: typing.Dict[str, typing.Any]):
+    def _validate(self, json: Dict[str, Any]):
         assert json['success'] is True
         assert isinstance(json['list'], list)
 
-    def _deserialize(self, json: typing.Dict[str, typing.Any]) -> typing.Iterable[SmuCalendarEvent]:
+    def _deserialize(self, json: Dict[str, Any]) -> Iterable[SmuCalendarEvent]:
         for item in json['list']:
             yield SmuCalendarEvent(
                 boardNo=item['boardNo'],
