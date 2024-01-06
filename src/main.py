@@ -4,6 +4,7 @@ import dataclasses
 import json
 import os
 from datetime import datetime, timedelta
+from html.parser import HTMLParser
 from typing import Any, Dict, Iterable, Set
 
 import requests
@@ -26,6 +27,15 @@ def main():
 
     with open(ICS_FILE_OUTPUT_PATH, 'w') as f:
         f.writelines(icalendar.serialize_iter())
+
+
+class HTMLTagRemover(HTMLParser):
+    def __init__(self, *, convert_charrefs: bool = True) -> None:
+        super().__init__(convert_charrefs=convert_charrefs)
+        self.results = ''
+
+    def handle_data(self, data: str) -> None:
+        self.results += data
 
 
 @dataclasses.dataclass
@@ -59,7 +69,7 @@ class SmuCalendarEvent:
         event = ics.Event(
             uid=str(self.articleNo),
             name=self.articleTitle,
-            description=self.articleText,
+            description=self._cleanhtml(self.articleText),
             begin=self._strptime(self.etcChar6),
             end=max(self._strptime(self.etcChar6), self._strptime(self.etcChar7)),
             created=self._msptime(self.createDt),
@@ -74,6 +84,11 @@ class SmuCalendarEvent:
 
     def _msptime(self, ms: int) -> datetime:
         return datetime(1970, 1, 1) + timedelta(milliseconds=ms)
+
+    def _cleanhtml(self, html: str) -> str:
+        remover = HTMLTagRemover()
+        remover.feed(html)
+        return remover.results
 
 
 class SmuCalendar:
